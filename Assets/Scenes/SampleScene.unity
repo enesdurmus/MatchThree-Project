@@ -1617,12 +1617,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7470f50457f19344aa408a397e24fb7c, type: 2}
   - {fileID: 11400000, guid: 39c0eb89c75072646b356316d16c403f, type: 2}
   - {fileID: 11400000, guid: 98ad03e0648f3774aaff915c82820e30, type: 2}
+  - {fileID: 11400000, guid: 71eb90058bdca45fb8480f29c6389a1d, type: 2}
+  - {fileID: 11400000, guid: 5addc45036e3649f29f398f73ed3a598, type: 2}
   shapeDatas:
   - {fileID: 11400000, guid: 828bc56eb85d3454ea2605a856b44dc4, type: 2}
   - {fileID: 11400000, guid: 90a62e9875c6eb241bd215fb7c9bed0b, type: 2}
   - {fileID: 11400000, guid: 39c0eb89c75072646b356316d16c403f, type: 2}
   - {fileID: 11400000, guid: 98ad03e0648f3774aaff915c82820e30, type: 2}
   - {fileID: 11400000, guid: 7470f50457f19344aa408a397e24fb7c, type: 2}
+  - {fileID: 11400000, guid: 3c4bb148ce0195e4289e6c75f0ad29a1, type: 2}
+  - {fileID: 11400000, guid: 71eb90058bdca45fb8480f29c6389a1d, type: 2}
+  - {fileID: 11400000, guid: 5addc45036e3649f29f398f73ed3a598, type: 2}
   mergeSprites:
   - {fileID: 7641651158198303906, guid: 5c262d6d56bec4700b3baa816e3f2e1c, type: 3}
   - {fileID: -5805099448801533850, guid: 5c262d6d56bec4700b3baa816e3f2e1c, type: 3}
@@ -2359,6 +2364,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Graphy]'
       objectReference: {fileID: 0}
+    - target: {fileID: 22424132, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 22439978, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 22445198, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 22450346, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2442,6 +2463,22 @@ PrefabInstance:
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460488, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 22465754, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 22477518, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010243477314, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.20025635
       objectReference: {fileID: 0}
     - target: {fileID: 224000010937413736, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_AnchoredPosition.y

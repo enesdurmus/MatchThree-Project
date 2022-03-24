@@ -39,10 +39,9 @@ public abstract class Booster : Shape
         {
             case BoosterMerge.BigLightBall:
                 BoardManager.Instance.SetGameState(GameState.BigDiscoExplosion);
-                StartCoroutine(BoardManager.Instance.StartShiftDownTrigger());
-
                 HandleBigLightBall();
                 StartCoroutine(WaitStartShift(0.7f + TimeToExpandIn + TimeToExpandOut));
+                BoardManager.Instance.DelayedShiftDown(new List<int> { 0, 1, 2, 3, 4, 5 }, 0.7f + TimeToExpandIn + TimeToExpandOut);
                 break;
             case BoosterMerge.LightBallWithBomb:
                 BoardManager.Instance.SetGameState(GameState.DiscoBombExplosion);
@@ -119,7 +118,9 @@ public abstract class Booster : Shape
             if (shapeMatrix[row, col] != null &&
                 !BoardManager.Instance.IsShapeCheckedBefore(adjacentShapes, shapeMatrix[row, col]) &&
                 shapeMatrix[row, col]._shapeData.ShapeType != ShapeType.Cube &&
-                shapeMatrix[row, col]._shapeData.ShapeType != ShapeType.Box)
+                shapeMatrix[row, col]._shapeData.ShapeType != ShapeType.Box &&
+                shapeMatrix[row, col]._shapeData.ShapeType != ShapeType.Box2 &&
+                    shapeMatrix[row, col]._shapeData.ShapeType != ShapeType.Box3)
             {
                 adjacentShapes.Add(shapeMatrix[row, col]);
                 shapeMatrix[row, col].FindAdjacentShapes(false, adjacentShapes, null);

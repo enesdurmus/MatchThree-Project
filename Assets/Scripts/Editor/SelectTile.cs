@@ -362,4 +362,22 @@ public class SelectTile : MonoBehaviour, IPointerClickHandler
             tilesDict[tiles.IndexOf(selectedTile)] = 7;
         }
     }
+
+    public void PlaceBox2()
+    {
+        if (selectedTile != null)
+        {
+            selectedTile.GetComponent<Image>().sprite = sprites[18];
+            tilesDict[tiles.IndexOf(selectedTile)] = 10;
+        }
+    }
+
+    public void PlaceBox3()
+    {
+        if (selectedTile != null)
+        {
+            selectedTile.GetComponent<Image>().sprite = sprites[19];
+            tilesDict[tiles.IndexOf(selectedTile)] = 11;
+        }
+    }
 }

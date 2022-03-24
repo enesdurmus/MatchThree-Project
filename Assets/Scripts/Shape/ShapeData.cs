@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ShapeType
 {
-    Cube, Bomb, Rocket, Disco, Box, Empty
+    Cube, Bomb, Rocket, Disco, Box, Empty, Box2, Box3
 }
 
 public enum ShapeColor
