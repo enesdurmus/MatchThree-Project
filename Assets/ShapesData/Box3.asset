@@ -15,6 +15,6 @@ MonoBehaviour:
   _shapeType: 7
   _shapeColor: 3
   _sprite: {fileID: 21300000, guid: 230d54fe5c3cd41e599a239e19f72525, type: 3}
-  _explodeEffect: {fileID: 0}
+  _explodeEffect: {fileID: 6314450734431520952, guid: 7391e2bb3ea5840ebbed09473fbe5aec, type: 3}
   _isShiftable: 0
   _isGoalShape: 1

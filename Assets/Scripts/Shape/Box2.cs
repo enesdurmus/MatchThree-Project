@@ -9,6 +9,7 @@ public class Box2 : Shape
         Shape shape = gameObject.AddComponent<Box1>();
         shape.SetShapeData(BoardManager.Instance.GetShapeData(ShapeType.Box2), _row, _col);
         BoardManager.Instance.ReloadShapeToList(shape, _row, _col);
+        Instantiate(_shapeData.ExplodeEffect, transform.position, transform.rotation, transform.parent);
         Destroy(GetComponent<Box2>());
     }
 
