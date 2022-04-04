@@ -141,15 +141,162 @@ public abstract class Shape : MonoBehaviour, IPointerDownHandler
         });
     }
 
+    #region Shift Diagonal
+
+    public void ShiftDiagonal()
+    {
+        StartCoroutine(WaitForShiftDiagonal());
+    }
+    private IEnumerator WaitForShiftDiagonal()
+    {
+        yield return new WaitUntil(() => BoardManager.Instance.isShiftingATile == false);
+        BoardManager.Instance.isShiftingATile = true;
+
+        ShiftDiagonalAfterWait();
+    }
+
+    private void ShiftDiagonalAfterWait()
+    {
+        
+        //this block is not shiftable
+        if (!_shapeData.IsShiftable)
+        {
+            return;
+        }
+
+        Shape[,] shapeMatrix = BoardManager.Instance.GetShapeMatrix();
+
+        //find the diagonal tiles this shape would shift to
+        int downRow = _row - 1;
+        int rightCol = _col + 1;
+        int leftCol = _col - 1;
+
+        Debug.Log("Matrix Dimensions: " + shapeMatrix.GetLength(0) + ", " + shapeMatrix.GetLength(1));
+        Debug.Log("Trying shift diagonal to: (" + downRow + ", " + leftCol + ") or (" + downRow + ", " + rightCol + ").");
+        //all of these tiles are out of bounds of the matrix
+        if (downRow < 0)
+        {
+            return;
+        }
+
+        //the tile at down left is empty
+        if (leftCol >= 0 && shapeMatrix[downRow, leftCol] == null)
+        {
+            /*
+            if (_shapeState == ShapeState.Shifting)
+            {
+                _shiftDownSequence.Kill();
+                _row = FindCurrentRow();
+            }
+            else
+            {
+                _shapeState = ShapeState.Shifting;
+            }
+            */
+
+
+            
+            shapeMatrix[_row, _col] = null;
+            
+            ShiftDiagonalTo(downRow, leftCol);
+
+            shapeMatrix[downRow, leftCol] = this;
+
+        }
+        else if(rightCol < shapeMatrix.GetLength(1) && shapeMatrix[downRow, rightCol] == null)
+        {
+            /*
+            //already shifting
+            if (_shapeState == ShapeState.Shifting)
+            {
+                //stop the shift
+                _shiftDownSequence.Kill();
+                _row = FindCurrentRow();
+            }
+            //not shifting already
+            else
+            {
+                //start shifting
+                _shapeState = ShapeState.Shifting;
+            }
+            */
+            shapeMatrix[_row, _col] = null;
+
+            ShiftDiagonalTo(downRow, rightCol);
+
+            shapeMatrix[downRow, rightCol] = this;
+        }
+
+    }
+
+
+    private void ShiftDiagonalTo(int row, int col)
+    {
+        Vector2 offset = _spriteRenderer.bounds.size;
+
+        //calculate the position to shift
+        float xWordlPos = offset.x * col;
+        float yWorldPos = offset.y * row - (row * 0.08f);
+        Vector2 positionToShift = new Vector2(xWordlPos, yWorldPos);
+
+        AnimateShift(positionToShift, TimeShiftDown);
+
+        _row = row;
+        _spriteRenderer.sortingOrder = _row + 1;
+
+        _col = col;
+    }
+
+    private void AnimateShift(Vector2 positionToAnimate, float shiftTime)
+    {
+
+        if (_shapeState != ShapeState.Shifting)
+        {
+            _shapeState = ShapeState.Shifting;
+            _shiftDownSequence = DOTween.Sequence();
+
+        }
+
+        float shiftAmount = (new Vector2(_col, _row) - positionToAnimate).magnitude;
+
+        _shiftDownSequence.Append(transform.DOLocalMove(positionToAnimate, shiftTime * shiftAmount)
+                           .SetEase(Ease.InQuad))
+                           //.Append(BounceShape(positionToAnimate, shiftAmount))
+                           .OnComplete(() =>
+                           {
+                               _shapeState = ShapeState.Waiting;
+                               BoardManager.Instance.isShiftingATile = false;
+                           });
+    }
+
+    /*
+    private void DiagonalBounceShape(Vector2 position, float shiftAmount)
+    {
+        return transform.DOLocalMove(position + BounceAmount * shiftAmount, TimeBounce).SetEase(Ease.OutQuad).SetLoops(2, LoopType.Yoyo);
+    }
+    */
+
+    #endregion
+
     #region Shift Down
 
     public void ShiftDown(bool isForRefill = false)
     {
+        StartCoroutine(WaitForShiftDown(isForRefill));
+    }
+
+    private IEnumerator WaitForShiftDown(bool isForRefill)
+    {
+        yield return new WaitUntil(() => BoardManager.Instance.isShiftingATile == false);
+        BoardManager.Instance.isShiftingATile = true;
+        ShiftDownAfterWait(isForRefill);
+    }
+
+    private void ShiftDownAfterWait(bool isForRefill)
+    {
         if (_shapeData.IsShiftable)
         {
-            int rowToShift = isForRefill ?
-                FindEmptyRow(BoardManager.Instance.GetRowCount() - 1) :
-                FindEmptyRow(_row);
+            int rowToShift = isForRefill ? FindEmptyRow(BoardManager.Instance.GetRowCount() - 1) : FindEmptyRow(_row);
 
             HandleShiftDown(rowToShift, isForRefill);
         }
@@ -219,6 +366,7 @@ public abstract class Shape : MonoBehaviour, IPointerDownHandler
         {
             _shapeState = ShapeState.Waiting;
             BoardManager.Instance.FindMerges();
+            BoardManager.Instance.isShiftingATile = false;
         });
     }
 

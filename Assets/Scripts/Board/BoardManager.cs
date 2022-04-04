@@ -52,6 +52,8 @@ public class BoardManager : MonoBehaviour
     private Dictionary<int, int> _distinctColumns;
     private bool _isMergesFound = false;
 
+    public bool isShiftingATile = false;
+
     public static BoardManager Instance
     {
         get
@@ -243,16 +245,48 @@ public class BoardManager : MonoBehaviour
     {
         FindEmptyCells();
 
-        if (_gameState == GameState.Ready)
+        if (_gameState != GameState.Ready)
         {
-            foreach (int column in _distinctColumns.Keys)
-                for (int i = 0; i < rows; i++)
-                    if (_instantiatedShapes[i, column] != null)
-                        _instantiatedShapes[i, column].GetComponent<Shape>().ShiftDown();
-
-            RefillBoard();
+            return;
         }
+
+        foreach (int column in _distinctColumns.Keys)
+            for (int i = 0; i < rows; i++)
+                if (_instantiatedShapes[i, column] != null)
+                    _instantiatedShapes[i, column].GetComponent<Shape>().ShiftDown();
+
+        RefillBoard();
+
+        for (int row = _instantiatedShapes.GetLength(0) - 1; row > 0; row--)
+        {
+            for (int col = 0; col < _instantiatedShapes.GetLength(1); col++)
+            {
+                if (_instantiatedShapes[row, col] == null)
+                {
+                    continue;
+                }
+
+
+                _instantiatedShapes[row, col].GetComponent<Shape>().ShiftDiagonal();
+            }
+        }
+
+        FindEmptyCells();
+
+        foreach (int column in _distinctColumns.Keys)
+            for (int i = 0; i < rows; i++)
+                if (_instantiatedShapes[i, column] != null)
+                    _instantiatedShapes[i, column].GetComponent<Shape>().ShiftDown();
+
+        RefillBoard();
     }
+
+    /*
+    private IEnumerator WaitForDiagonalShift()
+    {
+
+    }
+    */
 
     public void DelayedShiftDown(float delay)
     {
