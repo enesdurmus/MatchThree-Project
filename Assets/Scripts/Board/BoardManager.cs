@@ -52,6 +52,8 @@ public class BoardManager : MonoBehaviour
     private Dictionary<int, int> _distinctColumns;
     private bool _isMergesFound = false;
 
+    public bool isShiftingATile = false;
+
     public static BoardManager Instance
     {
         get
@@ -241,9 +243,78 @@ public class BoardManager : MonoBehaviour
 
     public void StartShiftDown()
     {
+<<<<<<< Updated upstream
         FindEmptyCells();
 
         if (_gameState == GameState.Ready)
+=======
+        /*
+        FindEmptyCells();
+
+        if (_gameState != GameState.Ready)
+        {
+            return;
+        }
+
+        foreach (int column in _distinctColumns.Keys)
+            for (int i = 0; i < rows; i++)
+                if (_instantiatedShapes[i, column] != null)
+                    _instantiatedShapes[i, column].GetComponent<Shape>().ShiftDown();
+
+        RefillBoard(_distinctColumns);
+
+        for (int row = _instantiatedShapes.GetLength(0) - 1; row > 0; row--)
+        {
+            for (int col = 0; col < _instantiatedShapes.GetLength(1); col++)
+            {
+                if (_instantiatedShapes[row, col] == null)
+                {
+                    continue;
+                }
+
+
+                _instantiatedShapes[row, col].GetComponent<Shape>().ShiftDiagonal();
+            }
+        }
+
+        FindEmptyCells();
+
+        foreach (int column in _distinctColumns.Keys)
+            for (int i = 0; i < rows; i++)
+                if (_instantiatedShapes[i, column] != null)
+                    _instantiatedShapes[i, column].GetComponent<Shape>().ShiftDown();
+
+        RefillBoard(_distinctColumns);
+        */
+    }
+
+    public void StartShiftDown(List<int> columns)
+    {
+        //columns that are adjacent to the original columns
+        List<int> adjacentColumns = new List<int>();
+
+        foreach (int column in columns)
+        {
+            if (column+1 < _instantiatedShapes.GetLength(1))
+            {
+                adjacentColumns.Add(column + 1);
+            }
+
+            if (column-1 >= 0)
+            {
+                adjacentColumns.Add(column - 1);
+            }
+        }
+
+        foreach (int adjacentColumn in adjacentColumns)
+        {
+            columns.Add(adjacentColumn);
+        }
+
+        int counter;
+
+        foreach (int column in columns)
+>>>>>>> Stashed changes
         {
             foreach (int column in _distinctColumns.Keys)
                 for (int i = 0; i < rows; i++)

@@ -55,16 +55,30 @@ public abstract class Booster : Shape
                 break;
             case BoosterMerge.BombWithRocket:
                 BoardManager.Instance.SetGameState(GameState.RocketBombExplosion);
+<<<<<<< Updated upstream
+=======
+                //StartCoroutine(BoardManager.Instance.StartShiftDownTrigger());
+
+>>>>>>> Stashed changes
                 HandleBombWithRocket(); 
                 StartCoroutine(WaitStartShift(1.75f));
                 break;
             case BoosterMerge.DoubleRocket:
+<<<<<<< Updated upstream
                 BoardManager.Instance.SetGameState(GameState.DoubleRocket);
+=======
+                BoardManager.Instance.SetGameState(GameState.DoubleRocket); 
+                //StartCoroutine(BoardManager.Instance.StartShiftDownTrigger());
+>>>>>>> Stashed changes
                 HandleDoubleRocket();
                 StartCoroutine(WaitStartShift(0.7f));
                 break;
             case BoosterMerge.None:
                 Explode();
+<<<<<<< Updated upstream
+=======
+                //StartCoroutine(BoardManager.Instance.StartShiftDownTrigger());
+>>>>>>> Stashed changes
 
                 if(GetType() == typeof(Rocket))
                     StartCoroutine(WaitStartShift(0.4f));
